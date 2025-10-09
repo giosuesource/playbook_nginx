@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: Copia file con template
+    - name: Copia file di configurazione Nginx da macchina host a macchina remota
       template:
         src: templates/nginx.conf.j2
         dest: /usr/local/nginx-1.26.2/conf/nginx.conf
@@ -14,7 +14,7 @@
       notify: Riavvia Nginx
 
   handlers:
-    - name: Riavvia Nginx
+    - name: Se il file era già presente ed è stato modificato riavvia il service nginx-custom, altrimenti prosegue
       service:
         name: nginx-custom #nginx-custom.service 
         state: restarted
